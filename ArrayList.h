@@ -45,6 +45,21 @@ public:
         }
         std::cout << std::endl;
     }
+    void addAnywhere(int position, T* value) override {
+        if (size_ >= CAPACITY) {
+            std::cout << "ArrayList is full." << std::endl;
+            return;
+        }
+        if (position > size_ || position < 0) {
+            std::cout << "Invalid index." << std::endl;
+            return;
+        }
+        for (int i = size_; i > position; --i) {
+            data_[i] = data_[i - 1];
+        }
+        data_[position] = value;
+        ++size_;
+    }
     ~ArrayList() override {
         for (int i = 0; i < size_; ++i) {
             delete data_[i];

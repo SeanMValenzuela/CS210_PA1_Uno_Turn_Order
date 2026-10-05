@@ -41,6 +41,29 @@ public:
         }
         std::cout << std::endl;
     }
+    void addAnywhere(int position, T* value) override {
+        if (position < 0) {
+            std::cout << "Invalid position." << std::endl;
+            return;
+        }
+        int count = 0;
+        Node <T>* current = head_;
+        if (position == 0) {
+            addFront(value);
+            return;
+        } else {
+            while (count != position - 1) {
+                if (current == nullptr) {
+                    std::cout << "Invalid position." << std::endl;
+                    return;
+                }current = current->next;
+                count++;
+            }
+        }
+        Node <T>* newNode = new Node<T>(value);
+        newNode->next = current->next;
+        current->next = newNode;
+    }
     ~LinkedList() override {
         while (head_ != nullptr) {
             Node<T>* doomed = head_;
