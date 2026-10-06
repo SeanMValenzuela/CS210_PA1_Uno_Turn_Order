@@ -14,6 +14,7 @@ public:
         Node<T>* fresh = new Node<T>(value);
         fresh->next = head_;
         head_ = fresh;
+        ++size_;
     }
     void deleteFront() override {
         if (head_ == nullptr) {
@@ -24,6 +25,7 @@ public:
         head_ = head_->next;
         delete doomed->data;
         delete doomed;
+        --size_;
     }
     bool search(T* value) const override {
         Node<T>* current = head_;
@@ -56,13 +58,45 @@ public:
                 if (current == nullptr) {
                     std::cout << "Invalid position." << std::endl;
                     return;
-                }current = current->next;
+                }
+                current = current->next;
                 count++;
             }
         }
         Node <T>* newNode = new Node<T>(value);
         newNode->next = current->next;
         current->next = newNode;
+        ++size_;
+    }
+    void deleteAnywhere(int position) override {
+        if (head_ == nullptr) {
+            std::cout << "LinkedList is empty." << std::endl;
+            return;
+        }
+        if (position < 0) {
+            std::cout << "Invalid position." << std::endl;
+            return;
+        }
+        int count = 0;
+        Node<T>* current = head_;
+        if (position == 0) {
+            deleteFront();
+            return;
+        } else {
+            while (count != position - 1) {
+                if (current->next == nullptr) {
+                    std::cout << "Invalid position." << std::endl;
+                    return;
+                }
+                current = current->next;
+                count++;
+            }
+        }
+        Node<T>* doomed = current->next;
+        current->next = current->next->next;
+        delete doomed->data;
+        delete doomed;
+        --size_;
     }
     ~LinkedList() override {
         while (head_ != nullptr) {
@@ -74,4 +108,5 @@ public:
     }
 private:
     Node<T>* head_;
+    int size_;
 };

@@ -60,6 +60,22 @@ public:
         data_[position] = value;
         ++size_;
     }
+    void deleteAnywhere(int position) override {
+        if (position == 0) {
+            deleteFront();
+            return;
+        }
+        if (position < 0 || position >= size_) {
+            std::cout << "Invalid index." << std::endl;
+            return;
+        }
+        delete data_[position];
+        for (int i = position; i < size_ - 1; ++i) {
+            data_[i] = data_[i + 1];
+        }
+        --size_;
+        data_[size_] = nullptr;
+    }
     ~ArrayList() override {
         for (int i = 0; i < size_; ++i) {
             delete data_[i];
