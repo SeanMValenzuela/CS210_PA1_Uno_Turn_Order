@@ -114,6 +114,28 @@ public:
         }
         head_ = previous;
     }
+    void concat(List<T>* other) override {
+        LinkedList<T>* otherList = dynamic_cast<LinkedList<T>* >(other);
+        if (otherList == nullptr) {
+            std::cout << "Representations do not match." << std::endl;
+            return;
+        }
+        if (this->size_ == 0) {
+            this->head_ = otherList->head_;
+            this->size_ = otherList->size_;
+            otherList->size_ = 0;
+            otherList->head_ = nullptr;
+            return;
+        }
+        Node<T>* current = this->head_;
+        while (current->next != nullptr) {
+            current = current->next;
+        }
+        current->next = otherList->head_;
+        this->size_ += otherList->size_;
+        otherList->size_ = 0;
+        otherList->head_ = nullptr;
+    }
     ~LinkedList() override {
         while (head_ != nullptr) {
             Node<T>* doomed = head_;

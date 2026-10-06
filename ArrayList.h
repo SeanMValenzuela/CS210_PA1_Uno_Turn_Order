@@ -88,6 +88,23 @@ public:
             data_[j] = temp1;
         }
     }
+    void concat(List<T>* other) override {
+       ArrayList<T>* otherList = dynamic_cast<ArrayList<T>* >(other);
+        if (otherList == nullptr) {
+            std::cout << "Representations do not match." << std::endl;
+            return;
+        }
+        if (this->size_ + otherList->size_ > CAPACITY) {
+            std::cout << "New ArrayList to be created would exceed capacity." << std::endl;
+            return;
+        }
+        for (int i = this->size_, j = 0; i < this->size_ + otherList->size_ && j < otherList->size_; ++i, ++j) {
+            this->data_[i] = otherList->data_[j];
+            otherList->data_[j] = nullptr;
+        }
+        this->size_ += otherList->size_;
+        otherList->size_ = 0;
+    }
     ~ArrayList() override {
         for (int i = 0; i < size_; ++i) {
             delete data_[i];
