@@ -76,6 +76,18 @@ public:
         --size_;
         data_[size_] = nullptr;
     }
+    void reverse() override {
+        if (size_ == 0) {
+            std::cout << "ArrayList is empty." << std::endl;
+            return;
+        }
+        for (int i = 0, j = size_ - 1; i < j; ++i, --j) {
+            T* temp1 = data_[i];
+            T* temp2 = data_[j];
+            data_[i] = temp2;
+            data_[j] = temp1;
+        }
+    }
     ~ArrayList() override {
         for (int i = 0; i < size_; ++i) {
             delete data_[i];

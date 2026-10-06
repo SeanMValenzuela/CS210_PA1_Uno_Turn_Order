@@ -98,6 +98,22 @@ public:
         delete doomed;
         --size_;
     }
+    void reverse() override {
+        if (head_ == nullptr) {
+            std::cout << "LinkedList is empty." << std::endl;
+            return;
+        }
+        Node<T>* current = head_;
+        Node<T>* previous = nullptr;
+        Node<T>* follow = nullptr;
+        while (current != nullptr) {
+            follow = current->next;
+            current->next = previous;
+            previous = current;
+            current = follow;
+        }
+        head_ = previous;
+    }
     ~LinkedList() override {
         while (head_ != nullptr) {
             Node<T>* doomed = head_;
