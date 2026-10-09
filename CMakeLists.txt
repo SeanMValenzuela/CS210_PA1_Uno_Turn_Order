@@ -12,4 +12,5 @@ add_executable(CS210_PA1_Uno_Turn_Order
         LinkedList.h
         Data.h
         Player.h
-        main.cpp)
+        main.cpp
+        Card.h)
