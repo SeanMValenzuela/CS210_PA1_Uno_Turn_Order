@@ -30,17 +30,53 @@ int main() {
     // ---- Part 2: your Uno scene goes below ----
     std::cout << "A table forms, four players named Liam, Noel, Bonehead, and Guigsy join the turn order..." << std::endl;
     std::unique_ptr<List<Player>> table = makeList<Player>();
-    table->addFront(new Player(4, "Guigsy"));
-    table->addFront(new Player(3, "Bonehead"));
-    table->addFront(new Player(2, "Noel"));
-    table->addFront(new Player(1, "Liam"));
+    Player* guigsy = new Player(4, "Guigsy");
+    table->addFront(guigsy);
+    Player* bonehead = new Player(3, "Bonehead");
+    table->addFront(bonehead);
+    Player* noel = new Player(2, "Noel");
+    table->addFront(noel);
+    Player* liam = new Player(1, "Liam");
+    table->addFront(liam);
+    std::cout << '\n';
+
+    std::cout << "Each player is dealt with 3 cards..." << std::endl;
+    guigsy->addCard(new Card("Red", "5"));
+    guigsy->addCard(new Card("Blue", "2"));
+    guigsy->addCard(new Card("Blue", "3"));
+
+    bonehead->addCard(new Card("Any Color", "Draw Four"));
+    bonehead->addCard(new Card("Green", "8"));
+    bonehead->addCard(new Card("Red", "0"));
+
+    noel->addCard(new Card("Yellow", "9"));
+    noel->addCard(new Card("Blue", "5"));
+    noel->addCard(new Card("Blue", "Draw Two"));
+
+    liam->addCard(new Card("Yellow", "1"));
+    liam->addCard(new Card("Green", "2"));
+    liam->addCard(new Card("Yellow", "Reverse"));
     std::cout << '\n';
 
     std::cout << "A new player named Whitey pulls up a chair and joins mid-order..." << std::endl;
-    table->addAnywhere(3, new Player(5, "Whitey"));
+    Player* whitey = new Player(5, "Whitey");
+    table->addAnywhere(3, whitey);
     std::cout << '\n';
 
-    std::cout << "Someone plays a reverse card..." << std::endl;
+    std::cout << "Whitey is dealt 3 cards..." << std::endl;
+    whitey->addCard(new Card("Any Color", "Wild Card"));
+    whitey->addCard(new Card("Blue", "Reverse"));
+    whitey->addCard(new Card("Green", "3"));
+    std::cout << '\n';
+
+    std::cout<<"Bonehead plays a card..." << std::endl;
+    bonehead->playCard();
+    std::cout << '\n';
+
+    std::cout << "Liam plays a reverse card..." << std::endl;
+    liam->playCard();
+    std::cout << '\n';
+
     std::cout << "Turn order before reverse: " << std::endl;
     table->print();
     table->reverse();
@@ -54,10 +90,32 @@ int main() {
 
     std::cout << "A second table with players named Tony, Gem, Andy, and Joey is formed..." << std::endl;
     std::unique_ptr<List<Player>> table2 = makeList<Player>();
-    table2->addFront(new Player(4, "Joey"));
-    table2->addFront(new Player(3, "Andy"));
-    table2->addFront(new Player(2, "Gem"));
-    table2->addFront(new Player(1, "Tony"));
+    Player* joey = new Player(9, "Joey");
+    table2->addFront(joey);
+    Player* andy = new Player(8, "Andy");
+    table2->addFront(andy);
+    Player* gem = new Player(7, "Gem");
+    table2->addFront(gem);
+    Player* tony = new Player(6, "Tony");
+    table2->addFront(tony);
+    std::cout << '\n';
+
+    std::cout << "Joey, Andy, Gem, and Tony are dealt 3 cards each..." << std::endl;
+    joey->addCard(new Card("Any Color", "Wild Card"));
+    joey->addCard(new Card("Green", "5"));
+    joey->addCard(new Card("Yellow", "3"));
+
+    andy->addCard(new Card("Blue", "0"));
+    andy->addCard(new Card("Red", "Draw Two"));
+    andy->addCard(new Card("Red", "1"));
+
+    gem->addCard(new Card("Blue", "8"));
+    gem->addCard(new Card("Green", "4"));
+    gem->addCard(new Card("Any Color", "Draw Four"));
+
+    tony->addCard(new Card("Yellow", "6"));
+    tony->addCard(new Card("Yellow", "7"));
+    tony->addCard(new Card("Red", "Reverse"));
     std::cout << '\n';
 
     std::cout << "First table: " << std::endl;
